@@ -10,6 +10,10 @@ on:
         required: false
         type: string
         default: Dockerfile
+      context:
+        required: false
+        type: string
+        default: .
 
 permissions:
   contents: read
@@ -38,7 +42,7 @@ jobs:
             --file ${{ inputs.dockerfile }} \
             --tag ghcr.io/${{ github.repository_owner }}/${{ inputs.image-name }}:arm64 \
             --load \
-            .
+            ${{ inputs.context }}
           docker push ghcr.io/${{ github.repository_owner }}/${{ inputs.image-name }}:arm64
 
   build-amd64:
@@ -63,7 +67,7 @@ jobs:
             --file ${{ inputs.dockerfile }} \
             --tag ghcr.io/${{ github.repository_owner }}/${{ inputs.image-name }}:amd64 \
             --load \
-            .
+            ${{ inputs.context }}
           docker push ghcr.io/${{ github.repository_owner }}/${{ inputs.image-name }}:amd64
 
   create-manifest:
