@@ -1,7 +1,7 @@
 name: Trigger Watchtower Update
 
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       watchtower_base_url:
         description: 'Base URL of Watchtower (e.g. http://yourhost:8080)'
