@@ -1,0 +1,28 @@
+name: Trigger Watchtower Update
+
+on:
+  workflow_dispatch:
+    inputs:
+      watchtower_base_url:
+        description: 'Base URL of Watchtower (e.g. http://yourhost:8080)'
+        required: true
+        type: string
+      bearer_token:
+        description: 'Bearer Token (will be masked in logs)'
+        required: true
+        type: string
+
+jobs:
+  trigger-update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Mask the token
+        run: echo "::add-mask::${{ inputs.bearer_token }}"
+
+      - name: Trigger Watchtower Update
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ inputs.bearer_token }}" \
+            -H "Content-Type: application/json" \
+            "${{ inputs.watchtower_base_url }}/v1/update"
