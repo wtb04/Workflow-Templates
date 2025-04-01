@@ -14,13 +14,16 @@ on:
 jobs:
   trigger-update:
     runs-on: ubuntu-latest
+    env:
+      WATCHTOWER_BASE_URL: ${{ inputs.watchtower_base_url }}
+      BEARER_TOKEN: ${{ secrets.bearer_token }}
 
     steps:
       - name: Mask the token
-        run: echo "::add-mask::${{ inputs.bearer_token }}"
+        run: echo "::add-mask::$BEARER_TOKEN"
 
       - name: Trigger Watchtower Update
         run: |
           curl -X POST \
-            -H "Authorization: Bearer ${{ secrets.bearer_token }}" \
-            "${{ inputs.watchtower_base_url }}/v1/update"
+            -H "Authorization: Bearer $BEARER_TOKEN" \
+            "$WATCHTOWER_BASE_URL/v1/update"
