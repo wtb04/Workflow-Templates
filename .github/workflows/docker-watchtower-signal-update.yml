@@ -23,5 +23,4 @@ jobs:
         run: |
           curl -X POST \
             -H "Authorization: Bearer ${{ secrets.bearer_token }}" \
-            -H "Content-Type: application/json" \
             "${{ inputs.watchtower_base_url }}/v1/update"
