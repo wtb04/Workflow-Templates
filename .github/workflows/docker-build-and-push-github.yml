@@ -44,6 +44,7 @@ jobs:
                   file: ${{ inputs.dockerfile }}
                   platforms: linux/arm64
                   push: true
+                  provenance: false
                   tags: ghcr.io/${{ github.repository_owner }}/${{ inputs.image-name }}:${{ inputs.tag }}-arm64
                   cache-from: type=registry,ref=ghcr.io/${{ github.repository_owner }}/${{ inputs.image-name }}-cache:arm64
                   cache-to: type=registry,ref=ghcr.io/${{ github.repository_owner }}/${{ inputs.image-name }}-cache:arm64,mode=max
@@ -68,6 +69,7 @@ jobs:
                   file: ${{ inputs.dockerfile }}
                   platforms: linux/amd64
                   push: true
+                  provenance: false
                   tags: ghcr.io/${{ github.repository_owner }}/${{ inputs.image-name }}:${{ inputs.tag }}-amd64
                   cache-from: type=registry,ref=ghcr.io/${{ github.repository_owner }}/${{ inputs.image-name }}-cache:amd64
                   cache-to: type=registry,ref=ghcr.io/${{ github.repository_owner }}/${{ inputs.image-name }}-cache:amd64,mode=max
