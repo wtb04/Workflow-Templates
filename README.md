@@ -25,3 +25,28 @@ jobs:
     with:
       image-name: {Imagename}
       dockerfile: {Dockerfile location}
+```
+
+## Inputs
+
+| Input | Required | Default | Description |
+| --- | --- | --- | --- |
+| `image-name` | yes | n/a | Image name under `ghcr.io/<owner>/`. |
+| `dockerfile` | no | `Dockerfile` | Path to the Dockerfile. |
+| `context` | no | `.` | Build context. |
+| `tag` | no | `latest` | Tag for the multi-arch manifest. |
+| `build-args` | no | none | Newline-separated `KEY=value` pairs passed to the build. |
+
+### build-args
+
+For values the build needs but the context should not carry:
+
+```yaml
+    with:
+      image-name: homepage
+      build-args: |
+        GIT_COMMIT_SHA=${{ github.sha }}
+        GIT_REMOTE_URL=${{ github.server_url }}/${{ github.repository }}
+```
+
+Read them with `ARG` in the Dockerfile. Declare the `ARG` *below* your dependency install step. A value that changes every commit invalidates every layer under it, so an `ARG` placed above `RUN npm ci` forces a reinstall on every build.
