@@ -18,6 +18,10 @@ on:
                 required: false
                 type: string
                 default: latest
+            build-args:
+                required: false
+                type: string
+                default: ""
 
 permissions:
     contents: read
@@ -45,6 +49,7 @@ jobs:
                   platforms: linux/arm64
                   push: true
                   provenance: false
+                  build-args: ${{ inputs.build-args }}
                   tags: ghcr.io/${{ github.repository_owner }}/${{ inputs.image-name }}:${{ inputs.tag }}-arm64
                   cache-from: type=registry,ref=ghcr.io/${{ github.repository_owner }}/${{ inputs.image-name }}-cache:arm64
                   cache-to: type=registry,ref=ghcr.io/${{ github.repository_owner }}/${{ inputs.image-name }}-cache:arm64,mode=max
@@ -70,6 +75,7 @@ jobs:
                   platforms: linux/amd64
                   push: true
                   provenance: false
+                  build-args: ${{ inputs.build-args }}
                   tags: ghcr.io/${{ github.repository_owner }}/${{ inputs.image-name }}:${{ inputs.tag }}-amd64
                   cache-from: type=registry,ref=ghcr.io/${{ github.repository_owner }}/${{ inputs.image-name }}-cache:amd64
                   cache-to: type=registry,ref=ghcr.io/${{ github.repository_owner }}/${{ inputs.image-name }}-cache:amd64,mode=max
