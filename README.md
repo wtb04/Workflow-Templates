@@ -50,3 +50,5 @@ For values the build needs but the context should not carry:
 ```
 
 Read them with `ARG` in the Dockerfile. Declare the `ARG` *below* your dependency install step. A value that changes every commit invalidates every layer under it, so an `ARG` placed above `RUN npm ci` forces a reinstall on every build.
+
+Made by [Wouter ten Brinke](https://woutertenbrinke.nl), with a [write-up of the project](https://woutertenbrinke.nl/projects/workflow-templates) on my site.
